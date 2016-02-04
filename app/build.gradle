@@ -11,6 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "API_KEY", '"3eda4e81c48ef2640845a8b990b283e4"'
+
+        // set instrumentation runner
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -18,6 +21,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    //handling duplicate files while including butterknife
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
 
@@ -37,4 +45,31 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.squareup.dagger:dagger-compiler:1.2.2'
+
+    //compile 'com.squareup:javawriter:2.5.0'
+
+    // Android JUnit Runner
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+
+    // JUnit4 Rules
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+
+    // Espresso core
+
+    // Espresso-contrib for DatePicker, RecyclerView, Drawer actions, Accessibility checks, CountingIdlingResource
+    // excluded support-v4 and recyclerview because they're already included in the dependencies above
+    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+        exclude module:  'espresso-core'
+        exclude module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile 'com.android.support.test.espresso:espresso-idling-resource:2.2.1'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+        exclude module: 'javawriter'
+    }
 }
+
+
+
+
